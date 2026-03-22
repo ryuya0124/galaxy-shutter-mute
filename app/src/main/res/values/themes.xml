@@ -1,0 +1,4 @@
+<resources>
+    <!-- Galaxy Shutter Mute のベーステーマ（Compose 用）-->
+    <style name="Theme.GalaxyShutterMute" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
