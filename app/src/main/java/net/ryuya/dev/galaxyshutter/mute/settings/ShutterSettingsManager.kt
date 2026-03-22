@@ -10,7 +10,7 @@ import android.provider.Settings
  * Galaxy 固有の設定キー:
  * - csc_pref_camera_forced_shuttersound_key
  *   1 = シャッター音あり（ON）
- *   2 = シャッター音なし（OFF）
+ *   0 = シャッター音なし（OFF）
  */
 class ShutterSettingsManager(private val context: Context) {
 
@@ -22,7 +22,7 @@ class ShutterSettingsManager(private val context: Context) {
         const val VALUE_SOUND_ON = 1
 
         /** シャッター音 OFF を表す値 */
-        const val VALUE_SOUND_OFF = 2
+        const val VALUE_SOUND_OFF = 0
     }
 
     /**
@@ -44,7 +44,7 @@ class ShutterSettingsManager(private val context: Context) {
      * シャッター音の状態を設定する
      * WRITE_SECURE_SETTINGS 権限が付与されていることが前提
      *
-     * @param enabled true の場合は音あり（1）、false の場合は音なし（2）を設定
+     * @param enabled true の場合は音あり（1）、false の場合は音なし（0）を設定
      * @return 書き込みに成功した場合 true
      */
     fun setShutterSoundEnabled(enabled: Boolean): Boolean {
