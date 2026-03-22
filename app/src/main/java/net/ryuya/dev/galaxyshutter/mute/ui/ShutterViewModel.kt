@@ -10,16 +10,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import net.ryuya.dev.galaxyshutter.mute.settings.ShutterSettingsManager
-import net.ryuya.dev.galaxyshutter.mute.shizuku.ShizukuHelper
-import rikka.shizuku.Shizuku
 
 /**
  * シャッター音トグル画面の状態を管理する ViewModel
+ * Manager アプリ側で WRITE_SECURE_SETTINGS を付与する設計となったため、ここではシステムネイティブで権限をチェックします。
  */
 class ShutterViewModel(private val context: Context) : ViewModel() {
-
-    /** 本アプリのパッケージ名 */
-    private val packageName = context.packageName
 
     private val shutterManager = ShutterSettingsManager(context)
 
@@ -27,48 +23,21 @@ class ShutterViewModel(private val context: Context) : ViewModel() {
     private val _uiState = MutableStateFlow(ShutterUiState())
     val uiState = _uiState.asStateFlow()
 
-    /** Shizuku 権限リクエスト結果のコールバック */
-    private val shizukuPermissionListener =
-        Shizuku.OnRequestPermissionResultListener { _, grantResult ->
-            if (grantResult == PackageManager.PERMISSION_GRANTED) {
-                // 権限取得後に状態を再評価する
-                checkStatusAndLoad()
-            } else {
-                _uiState.update { it.copy(permissionState = PermissionState.ShizukuDenied) }
-            }
-        }
-
     init {
-        Shizuku.addRequestPermissionResultListener(shizukuPermissionListener)
         checkStatusAndLoad()
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Shizuku.removeRequestPermissionResultListener(shizukuPermissionListener)
-    }
-
     /**
-     * Shizuku 状態・WRITE_SECURE_SETTINGS 権限・現在のシャッター設定値を確認してUIに反映する
+     * WRITE_SECURE_SETTINGS 権限・現在のシャッター設定値を確認してUIに反映する
      */
     fun checkStatusAndLoad() {
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true) }
 
-            val permissionState = when {
-                !ShizukuHelper.isShizukuAvailable() ->
-                    PermissionState.ShizukuNotRunning
-
-                !ShizukuHelper.hasShizukuPermission() ->
-                    PermissionState.ShizukuPermissionRequired
-
-                !hasWriteSecureSettings() -> {
-                    // WRITE_SECURE_SETTINGS がない → Shizuku 経由で付与を試みる
-                    val granted = ShizukuHelper.grantWriteSecureSettings(packageName)
-                    if (granted) PermissionState.Granted else PermissionState.WriteSecureSettingsDenied
-                }
-
-                else -> PermissionState.Granted
+            val permissionState = if (hasWriteSecureSettings()) {
+                PermissionState.Granted
+            } else {
+                PermissionState.WriteSecureSettingsDenied
             }
 
             val isSoundEnabled = if (permissionState == PermissionState.Granted) {
@@ -85,13 +54,6 @@ class ShutterViewModel(private val context: Context) : ViewModel() {
                 )
             }
         }
-    }
-
-    /**
-     * Shizuku 権限のリクエストを開始する
-     */
-    fun requestShizukuPermission() {
-        ShizukuHelper.requestShizukuPermission()
     }
 
     /**
@@ -139,18 +101,9 @@ sealed class PermissionState {
     /** 確認中 */
     object Checking : PermissionState()
 
-    /** 全権限 OK */
+    /** 権限 OK */
     object Granted : PermissionState()
 
-    /** Shizuku が起動していない */
-    object ShizukuNotRunning : PermissionState()
-
-    /** Shizuku 権限が未付与 */
-    object ShizukuPermissionRequired : PermissionState()
-
-    /** Shizuku 権限を拒否された */
-    object ShizukuDenied : PermissionState()
-
-    /** WRITE_SECURE_SETTINGS の付与に失敗 */
+    /** WRITE_SECURE_SETTINGS の付与がない */
     object WriteSecureSettingsDenied : PermissionState()
 }

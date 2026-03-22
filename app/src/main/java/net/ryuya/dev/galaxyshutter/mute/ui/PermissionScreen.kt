@@ -14,37 +14,18 @@ import androidx.compose.ui.unit.dp
 
 /**
  * 権限が不足している場合に表示する案内画面
- * 権限状態に応じてメッセージとアクションボタンを表示する
+ * Manager アプリからインストールして権限を付与するように促すデザイン
  */
 @Composable
 fun PermissionScreen(
     permissionState: PermissionState,
-    onRequestShizuku: () -> Unit,
     onRetry: () -> Unit
 ) {
     val (title, message, buttonLabel, buttonAction) = when (permissionState) {
-        is PermissionState.ShizukuNotRunning -> PermissionContent(
-            title = "Shizuku が起動していません",
-            message = "この機能を使用するには Shizuku アプリを起動する必要があります。\n\nShizuku を起動してから「再試行」をタップしてください。",
-            buttonLabel = "再試行",
-            action = onRetry
-        )
-        is PermissionState.ShizukuPermissionRequired -> PermissionContent(
-            title = "Shizuku 権限が必要です",
-            message = "Galaxy Shutter Mute がシャッター音を制御するには、Shizuku アプリからの権限付与が必要です。",
-            buttonLabel = "Shizuku 権限を付与",
-            action = onRequestShizuku
-        )
-        is PermissionState.ShizukuDenied -> PermissionContent(
-            title = "Shizuku 権限が拒否されました",
-            message = "Shizuku アプリから権限の付与を許可してください。\n\n「許可しない」を選択した場合は、Shizuku アプリから手動で許可を設定できます。",
-            buttonLabel = "再試行",
-            action = onRequestShizuku
-        )
         is PermissionState.WriteSecureSettingsDenied -> PermissionContent(
-            title = "システム権限の付与に失敗しました",
-            message = "WRITE_SECURE_SETTINGS 権限の付与に失敗しました。\n\n以下のコマンドを ADB で手動実行してみてください:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS",
-            buttonLabel = "再試行",
+            title = "Managerアプリが必要です",
+            message = "WRITE_SECURE_SETTINGS 権限が付与されていません。\n\n「Galaxy Shutter Mute Manager」アプリを使用してこのアプリをインストールすると自動的に権限が付与されます。\n\nADBで手動付与する場合は以下のコマンドを実行してください:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS",
+            buttonLabel = "権限を再確認する",
             action = onRetry
         )
         else -> PermissionContent(

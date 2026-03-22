@@ -46,6 +46,7 @@ dependencies {
     // AndroidX コア
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.activity.compose)
 
     // Compose BOM（バージョン一括管理）
@@ -55,10 +56,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
-
-    // Shizuku（権限取得に使用）
-    implementation(libs.shizuku.api)
-    implementation(libs.shizuku.provider)
 
     debugImplementation(libs.androidx.ui.tooling)
 }

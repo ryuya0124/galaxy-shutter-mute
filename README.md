@@ -65,7 +65,6 @@ adb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SEC
 ## 技術スタック
 
 - **Kotlin** / **Jetpack Compose** / **Material 3**
-- **Shizuku API** 13.1.5
 - `targetSdkVersion=21`（`csc_pref_camera_forced_shuttersound_key` へのアクセスに必要）
 
 ## パッケージ名

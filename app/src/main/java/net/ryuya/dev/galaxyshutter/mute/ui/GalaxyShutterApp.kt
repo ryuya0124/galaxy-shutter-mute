@@ -40,7 +40,6 @@ fun GalaxyShutterApp() {
                 else -> {
                     PermissionScreen(
                         permissionState = uiState.permissionState,
-                        onRequestShizuku = viewModel::requestShizukuPermission,
                         onRetry = viewModel::checkStatusAndLoad
                     )
                 }

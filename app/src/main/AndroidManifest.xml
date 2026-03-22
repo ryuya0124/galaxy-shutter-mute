@@ -27,18 +27,6 @@
             </intent-filter>
         </activity>
 
-        <!--
-            ShizukuProvider: Shizuku バインダーを取得するために必要
-            android:permission で通常アプリからのアクセスを防止する
-        -->
-        <provider
-            android:name="rikka.shizuku.ShizukuProvider"
-            android:authorities="${applicationId}.shizuku"
-            android:multiprocess="false"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.INTERACT_ACROSS_USERS_FULL" />
-
     </application>
 
 </manifest>
