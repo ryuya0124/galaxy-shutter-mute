@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -23,8 +25,26 @@ class ShutterViewModel(private val context: Context) : ViewModel() {
     private val _uiState = MutableStateFlow(ShutterUiState())
     val uiState = _uiState.asStateFlow()
 
+    /** 定期ポーリング用 Job */
+    private var pollingJob: Job? = null
+
     init {
-        checkStatusAndLoad()
+        // 起動直後に即チェック＋1分ごとの定期ポーリングを開始
+        startPolling()
+    }
+
+    /**
+     * ポーリングを開始する
+     * ループの先頭で毎回即チェックし、その後60秒待機して繰り返す
+     */
+    fun startPolling() {
+        pollingJob?.cancel()
+        pollingJob = viewModelScope.launch {
+            while (true) {
+                checkStatusAndLoad()  // 初回 or 再開時は即座にチェック
+                delay(60_000L)        // 60秒待機してから次のチェックへ
+            }
+        }
     }
 
     /**
@@ -74,6 +94,12 @@ class ShutterViewModel(private val context: Context) : ViewModel() {
     private fun hasWriteSecureSettings(): Boolean {
         return context.checkSelfPermission(android.Manifest.permission.WRITE_SECURE_SETTINGS) ==
                 PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        // ViewModel が破棄される際にポーリングを停止する
+        pollingJob?.cancel()
     }
 
     /** ViewModelFactory（Context を渡すために必要） */

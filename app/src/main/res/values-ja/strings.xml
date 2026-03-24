@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Galaxy Shutter Mute</string>
+
+    <!-- シャッター音トグル画面 -->
+    <string name="shutter_sound_label">シャッター音</string>
+    <string name="shutter_sound_description">Galaxy カメラのシャッター音を制御します</string>
+    <string name="shutter_sound_on">シャッター音 ON</string>
+    <string name="shutter_sound_off">シャッター音 OFF</string>
+    <string name="shutter_sound_on_hint">カメラシャッター時に音が鳴ります</string>
+    <string name="shutter_sound_off_hint">カメラシャッター時に音が鳴りません</string>
+
+    <!-- 権限案内画面 -->
+    <string name="permission_required_title">Managerアプリが必要です</string>
+    <string name="permission_required_message">WRITE_SECURE_SETTINGS 権限が付与されていません。\n\n「Galaxy Shutter Mute Manager」アプリを使用してこのアプリをインストールすると自動的に権限が付与されます。\n\nADBで手動付与する場合は以下のコマンドを実行してください:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_checking_title">権限を確認中…</string>
+    <string name="permission_retry">権限を再確認する</string>
+</resources>

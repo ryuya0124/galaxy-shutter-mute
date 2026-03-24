@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Galaxy Shutter Mute</string>
+
+    <!-- シャッター音トグル画面 -->
+    <string name="shutter_sound_label">Shutter Sound</string>
+    <string name="shutter_sound_description">Controls the camera shutter sound</string>
+    <string name="shutter_sound_on">Shutter Sound ON</string>
+    <string name="shutter_sound_off">Shutter Sound OFF</string>
+    <string name="shutter_sound_on_hint">Sound plays when taking photos</string>
+    <string name="shutter_sound_off_hint">Silent when taking photos</string>
+
+    <!-- 権限案内画面 -->
+    <string name="permission_required_title">Manager App Required</string>
+    <string name="permission_required_message">WRITE_SECURE_SETTINGS permission has not been granted.\n\nInstalling this app via \"Galaxy Shutter Mute Manager\" will automatically grant the permission.\n\nTo grant manually with ADB, run:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_checking_title">Checking permission…</string>
+    <string name="permission_retry">Re-check Permission</string>
 </resources>
+

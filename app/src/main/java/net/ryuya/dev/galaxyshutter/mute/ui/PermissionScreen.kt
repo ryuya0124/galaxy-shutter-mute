@@ -8,9 +8,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import net.ryuya.dev.galaxyshutter.mute.R
 
 /**
  * 権限が不足している場合に表示する案内画面
@@ -23,13 +25,13 @@ fun PermissionScreen(
 ) {
     val (title, message, buttonLabel, buttonAction) = when (permissionState) {
         is PermissionState.WriteSecureSettingsDenied -> PermissionContent(
-            title = "Managerアプリが必要です",
-            message = "WRITE_SECURE_SETTINGS 権限が付与されていません。\n\n「Galaxy Shutter Mute Manager」アプリを使用してこのアプリをインストールすると自動的に権限が付与されます。\n\nADBで手動付与する場合は以下のコマンドを実行してください:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS",
-            buttonLabel = "権限を再確認する",
+            title = stringResource(R.string.permission_required_title),
+            message = stringResource(R.string.permission_required_message),
+            buttonLabel = stringResource(R.string.permission_retry),
             action = onRetry
         )
         else -> PermissionContent(
-            title = "権限を確認中...",
+            title = stringResource(R.string.permission_checking_title),
             message = "",
             buttonLabel = "",
             action = {}

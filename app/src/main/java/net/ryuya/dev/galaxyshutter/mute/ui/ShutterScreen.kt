@@ -14,15 +14,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import net.ryuya.dev.galaxyshutter.mute.R
 
 /**
  * メインのシャッター音トグル画面
@@ -93,7 +92,8 @@ fun ShutterScreen(
             ) {
                 Icon(
                     imageVector = if (isSoundOn) Icons.Rounded.VolumeUp else Icons.Rounded.VolumeOff,
-                    contentDescription = if (isSoundOn) "シャッター音 ON" else "シャッター音 OFF",
+                    contentDescription = if (isSoundOn) stringResource(R.string.shutter_sound_on)
+                    else stringResource(R.string.shutter_sound_off),
                     modifier = Modifier
                         .size(80.dp)
                         .scale(iconScale),
@@ -105,7 +105,8 @@ fun ShutterScreen(
 
             // 状態テキスト
             Text(
-                text = if (isSoundOn) "シャッター音 ON" else "シャッター音 OFF",
+                text = if (isSoundOn) stringResource(R.string.shutter_sound_on)
+                else stringResource(R.string.shutter_sound_off),
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = if (isSoundOn) MaterialTheme.colorScheme.primary
@@ -117,8 +118,8 @@ fun ShutterScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = if (isSoundOn) "カメラシャッター時に音が鳴ります"
-                else "カメラシャッター時に音が鳴りません",
+                text = if (isSoundOn) stringResource(R.string.shutter_sound_on_hint)
+                else stringResource(R.string.shutter_sound_off_hint),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -144,13 +145,13 @@ fun ShutterScreen(
                 ) {
                     Column {
                         Text(
-                            text = "シャッター音",
+                            text = stringResource(R.string.shutter_sound_label),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.SemiBold
                             )
                         )
                         Text(
-                            text = "Galaxy カメラのシャッター音を制御します",
+                            text = stringResource(R.string.shutter_sound_description),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

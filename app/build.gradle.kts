@@ -14,8 +14,8 @@ android {
         applicationId = "net.ryuya.dev.galaxyshutter.mute"
         minSdk = 21
         targetSdk = 21  // Galaxy端末のCSCキーへアクセスするため意図的に低く設定
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
     }
 
     buildTypes {
