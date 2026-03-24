@@ -23,7 +23,8 @@
         android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GalaxyShutterMute">
+        android:theme="@style/Theme.GalaxyShutterMute"
+        android:localeConfig="@xml/locales_config">
 
         <activity
             android:name=".MainActivity"
