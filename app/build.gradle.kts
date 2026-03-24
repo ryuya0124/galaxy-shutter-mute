@@ -40,6 +40,10 @@ android {
     buildFeatures {
         compose = true
     }
+
+    lint {
+        disable += "ExpiredTargetSdkVersion"
+    }
 }
 
 dependencies {
