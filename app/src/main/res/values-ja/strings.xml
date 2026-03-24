@@ -11,7 +11,10 @@
 
     <!-- 権限案内画面 -->
     <string name="permission_required_title">Managerアプリが必要です</string>
-    <string name="permission_required_message">WRITE_SECURE_SETTINGS 権限が付与されていません。\n\n「Galaxy Shutter Mute Manager」アプリを使用してこのアプリをインストールすると自動的に権限が付与されます。\n\nADBで手動付与する場合は以下のコマンドを実行してください:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_required_message">WRITE_SECURE_SETTINGS 権限が付与されていません。\n\n「Galaxy Shutter Mute Manager」アプリを使用して本アプリをインストールすると、自動的に権限が付与されます。</string>
+    <string name="permission_adb_command_title">または、ADB経由で手動付与してください:</string>
+    <string name="permission_adb_command">adb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_copied">クリップボードにコピーしました</string>
     <string name="permission_checking_title">権限を確認中…</string>
     <string name="permission_retry">権限を再確認する</string>
 </resources>

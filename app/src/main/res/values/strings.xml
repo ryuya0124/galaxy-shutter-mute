@@ -11,7 +11,10 @@
 
     <!-- 権限案内画面 -->
     <string name="permission_required_title">Manager App Required</string>
-    <string name="permission_required_message">WRITE_SECURE_SETTINGS permission has not been granted.\n\nInstalling this app via \"Galaxy Shutter Mute Manager\" will automatically grant the permission.\n\nTo grant manually with ADB, run:\n\nadb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_required_message">WRITE_SECURE_SETTINGS permission has not been granted.\n\nInstalling this app via \"Galaxy Shutter Mute Manager\" will automatically grant the permission.</string>
+    <string name="permission_adb_command_title">Or use ADB command to grant manually:</string>
+    <string name="permission_adb_command">adb shell pm grant net.ryuya.dev.galaxyshutter.mute android.permission.WRITE_SECURE_SETTINGS</string>
+    <string name="permission_copied">Copied to clipboard</string>
     <string name="permission_checking_title">Checking permission…</string>
     <string name="permission_retry">Re-check Permission</string>
 </resources>

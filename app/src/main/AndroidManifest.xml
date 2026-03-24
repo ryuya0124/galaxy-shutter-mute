@@ -3,7 +3,15 @@
     Galaxy Shutter Mute の AndroidManifest.xml
     WRITE_SECURE_SETTINGS はシステム権限のため、Shizuku 経由で付与する
 -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Android 13+ でOSが互換性機能として通知権限ダイアログを自動表示してしまうのを防ぐため、
+        マージ時に通知権限を完全に削除するように指定します。
+        これにより、許可時のプロセスキル（ホーム画面に戻る現象）も回避できます。
+    -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove" />
 
     <!--
         WRITE_SECURE_SETTINGS: Settings.Systemの保護されたキーに書き込むために必要
